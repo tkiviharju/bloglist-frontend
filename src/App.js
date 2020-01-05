@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 
 import LoginService from './services/login.js';
 import BlogService from './services/blogs.js';
@@ -8,7 +9,8 @@ import LoginForm from './components/LoginForm.jsx';
 import Blogs from './components/Blogs.jsx';
 
 const App = () => {
-	const [ user, setUser ] = useState();
+	const [ user, setUser ] = useState(null);
+	const [ loading, setLoading ] = useState(true);
 	const [ blogs, setBlogs ] = useState([]);
 
 	useEffect(() => {
@@ -17,7 +19,17 @@ const App = () => {
 			.then(blogs => setBlogs(blogs))
 			.catch(error => console.log(error));
 
-	}, [ user ]);
+	}, []);
+
+	useEffect(() => {
+		const loggedUser = window.localStorage.getItem('user');
+		if (loggedUser) {
+			const user = JSON.parse(loggedUser);
+			setUser(user);
+			BlogService.setToken(user.token);
+		}
+		setLoading(false);
+	}, []);
 
 	const handleLogin = async (credentials) => {
 		const [ user, error ] = await promiseHandler(LoginService.login(credentials));
@@ -26,19 +38,42 @@ const App = () => {
 			return;
 		}
 		setUser(user);
+		window.localStorage.setItem('user', JSON.stringify(user));
 
 	};
 
-	return (
-		<div>
-			{user ?
-				<Blogs user={user} blogs={blogs}/>
-				:
-				<LoginForm handleLogin={handleLogin} />
+	const handleLogout = () => {
+		setUser(null);
+		window.localStorage.removeItem('user');
+		BlogService.setToken(null);
+	};
 
-			}
-		</div>
+	return (
+		<StyledWrapper>
+			<h1>Bloglist</h1>
+			{loading ? (
+				null
+			) : (
+				user ?
+					<Blogs
+						user={user}
+						blogs={blogs}
+						handleLogout={handleLogout}
+					/>
+					:
+					<LoginForm handleLogin={handleLogin} />
+			)}
+		</StyledWrapper>
 	);
 };
+
+const StyledWrapper = styled.div`
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+`;
 
 export default App;
