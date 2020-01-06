@@ -21,7 +21,7 @@ const App = () => {
 	useEffect(() => {
 		BlogService
 			.getAll()
-			.then(blogs => setBlogs(blogs.sort((blog1, blog2) => blog1.id > blog2.id ? 1 : -1)))
+			.then(blogs => setBlogs(blogs.sort((blog1, blog2) => blog1.likes < blog2.likes ? 1 : -1)))
 			.catch(error => setNotification(error.error, true));
 
 	}, []);
@@ -92,7 +92,7 @@ const App = () => {
 		const newBlogs = blogs
 			.filter(blog => blog.id !== updatedBlog.id)
 			.concat(updatedBlog)
-			.sort((blog1, blog2) => blog1.id > blog2.id ? 1 : -1);
+			.sort((blog1, blog2) => blog1.likes < blog2.likes ? 1 : -1);
 
 		setBlogs(newBlogs);
 	};
