@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import NewBlog from './NewBlog.jsx';
 import Blog from './Blog.jsx';
 
 
-const Blogs = ({ user, blogs, handleLogout }) => {
+const Blogs = ({ user, blogs, handleLogout, addBlog}) => {
 	if (!user) return;
 
 	const handleClick = () => (
@@ -17,9 +18,12 @@ const Blogs = ({ user, blogs, handleLogout }) => {
 			<StyledName>
 				{name} logged in. <StyledButton onClick={handleClick}>logout</StyledButton>
 			</StyledName>
-			{blogs.length > 0 && blogs.map(blog => <div key={blog.title}>
-				<Blog blog={blog} />
-			</div>)}
+			<NewBlog addBlog={addBlog}/>
+			<>
+				{blogs.length > 0 && blogs.map(blog => <div key={blog.title}>
+					<Blog blog={blog} />
+				</div>)}
+			</>
 		</div>
 	);
 };

@@ -32,14 +32,14 @@ const LoginForm = ({ handleLogin }) => {
 		<StyledWrapper>
 			<h2>Login to application</h2>
 			<StyledForm onSubmit={handleSubmit}>
-				<StyledInput
+				<input
 					type='text'
 					onChange={handleChange}
 					name='username'
 					placeholder='username'
 					value={username}
 				/>
-				<StyledInput
+				<input
 					type='password'
 					onChange={handleChange}
 					name='password'
@@ -63,12 +63,7 @@ const StyledForm = styled.form`
 
 `;
 
-const StyledInput = styled.input`
-	margin: 5px;
-	padding: 10px;
-`;
-
-const StyledButton = styled(StyledInput)`
+const StyledButton = styled.input`
 	max-width: 100px;
 	cursor: pointer;
 	outline: none;

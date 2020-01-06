@@ -31,6 +31,14 @@ const App = () => {
 		setLoading(false);
 	}, []);
 
+	const addBlog = async (newBlog) => {
+		const [ savedBlog, error ] = await promiseHandler(BlogService.create(newBlog));
+		return error ?
+			console.log(error)
+			:
+			setBlogs(blogs.concat(savedBlog));
+	};
+
 	const handleLogin = async (credentials) => {
 		const [ user, error ] = await promiseHandler(LoginService.login(credentials));
 		if (error){
@@ -50,7 +58,7 @@ const App = () => {
 
 	return (
 		<StyledWrapper>
-			<h1>Bloglist</h1>
+			<StyledTitle>Bloglist</StyledTitle>
 			{loading ? (
 				null
 			) : (
@@ -58,6 +66,7 @@ const App = () => {
 					<Blogs
 						user={user}
 						blogs={blogs}
+						addBlog={addBlog}
 						handleLogout={handleLogout}
 					/>
 					:
@@ -66,6 +75,10 @@ const App = () => {
 		</StyledWrapper>
 	);
 };
+
+const StyledTitle = styled.h1`
+	color: #4e5ca6;
+`;
 
 const StyledWrapper = styled.div`
 	width: 100%;

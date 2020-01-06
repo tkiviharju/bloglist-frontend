@@ -12,9 +12,17 @@ const setToken = newToken => {
 	}
 };
 
-const getAll = () => {
-	const request = axios.get(baseUrl);
-	return request.then(response => response.data);
+const getAll = async () => {
+	const result = await axios.get(baseUrl);
+	return result.data;
 };
 
-export default { getAll, setToken };
+const create = async (blog) => {
+	const config = {
+		headers: { Authorization: token },
+	};
+	const result = await axios.post(baseUrl, blog, config);
+	return result.data;
+};
+
+export default { setToken, getAll, create };
