@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import NewBlog from './NewBlog.jsx';
 import Blog from './Blog.jsx';
 import Togglabble from './Togglabble.jsx';
+import PropTypes from 'prop-types';
 
 
 const Blogs = ({ user, blogs, handleLogout, addBlog, NewBlogRef, handleNotification, setLike, deleteBlog, currentUser }) => {
@@ -30,6 +31,19 @@ const Blogs = ({ user, blogs, handleLogout, addBlog, NewBlogRef, handleNotificat
 		</div>
 	);
 };
+
+Blogs.propTypes = {
+	user: PropTypes.object.isRequired,
+	blogs: PropTypes.array.isRequired,
+	handleLogout: PropTypes.func.isRequired,
+	addBlog: PropTypes.func.isRequired,
+	NewBlogRef: PropTypes.object.isRequired,
+	handleNotification: PropTypes.func.isRequired,
+	setLike: PropTypes.func.isRequired,
+	deleteBlog: PropTypes.func.isRequired,
+	currentUser: PropTypes.string.isRequired
+};
+
 
 const StyledName = styled.div`
 	margin: 10px 0;

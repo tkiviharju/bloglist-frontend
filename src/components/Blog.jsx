@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const Blog = ({ blog, setLike, deleteBlog, currentUser }) => {
-	const { title, author, likes, url, user, id} = blog;
+	const { title, author, likes, url, user, id } = blog;
 	const [ showFull, setShowFull ] = useState(false);
 
 	const handleClick = () => setShowFull(!showFull);
@@ -19,7 +20,6 @@ const Blog = ({ blog, setLike, deleteBlog, currentUser }) => {
 			deleteBlog(id);
 		}
 	};
-console.log(currentUser)
 
 	return (
 		<StyledContainer onClick={handleClick}>
@@ -36,6 +36,13 @@ console.log(currentUser)
 			)}
 		</StyledContainer>
 	);
+};
+
+Blog.propTypes = {
+	blog: PropTypes.object.isRequired,
+	setLike: PropTypes.func.isRequired,
+	deleteBlog: PropTypes.func.isRequired,
+	currentUser: PropTypes.string.isRequired,
 };
 
 const StyledContainer = styled.div`

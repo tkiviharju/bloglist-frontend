@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const LoginForm = ({ handleLogin }) => {
 	const [ username, setUsername ] = useState('');
@@ -48,6 +49,10 @@ const LoginForm = ({ handleLogin }) => {
 			</StyledForm>
 		</StyledWrapper>
 	);
+};
+
+LoginForm.propTypes = {
+	handleLogin: PropTypes.func.isRequired
 };
 
 const StyledWrapper = styled.div`

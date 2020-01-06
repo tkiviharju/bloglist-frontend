@@ -1,6 +1,7 @@
 /* eslint-disable react/display-name */
 import React, { useState, useImperativeHandle } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const Togglable = React.forwardRef((props, ref) => {
 	const { buttonLabel, children } = props;
@@ -26,6 +27,11 @@ const Togglable = React.forwardRef((props, ref) => {
 		</div>
 	);
 });
+
+Togglable.propTypes = {
+	buttonLabel: PropTypes.string.isRequired,
+	children: PropTypes.object.isRequired
+};
 
 const StyledContainer = styled.div`
 	display: ${props => props.show ? '' : 'none'}

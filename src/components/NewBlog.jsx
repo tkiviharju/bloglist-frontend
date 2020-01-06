@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 
 const NewBlog = ({ addBlog, handleNotification }) => {
@@ -79,6 +80,12 @@ const NewBlog = ({ addBlog, handleNotification }) => {
 		</div>
 	);
 };
+
+NewBlog.propTypes = {
+	addBlog: PropTypes.func.isRequired,
+	handleNotification: PropTypes.func.isRequired
+};
+
 
 const StyledForm = styled.form`
 	display: flex;

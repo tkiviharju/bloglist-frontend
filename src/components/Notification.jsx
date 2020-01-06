@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+
 
 const Notification = ({ notification, error }) => {
 	return (
@@ -7,6 +9,11 @@ const Notification = ({ notification, error }) => {
 			{notification}
 		</StyledWrapper>
 	);
+};
+
+Notification.propTypes = {
+	notification: PropTypes.string.isRequired,
+	error: PropTypes.bool.isRequired,
 };
 
 const StyledWrapper = styled.div`
