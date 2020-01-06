@@ -6,7 +6,7 @@ import Blog from './Blog.jsx';
 import Togglabble from './Togglabble.jsx';
 
 
-const Blogs = ({ user, blogs, handleLogout, addBlog, NewBlogRef, handleNotification, setLike, deleteBlog }) => {
+const Blogs = ({ user, blogs, handleLogout, addBlog, NewBlogRef, handleNotification, setLike, deleteBlog, currentUser }) => {
 	if (!user) return;
 
 	const handleClick = () => (
@@ -24,7 +24,7 @@ const Blogs = ({ user, blogs, handleLogout, addBlog, NewBlogRef, handleNotificat
 			</Togglabble>
 			<>
 				{blogs.length > 0 && blogs.map(blog => <div key={blog.title}>
-					<Blog blog={blog} setLike={setLike} deleteBlog={deleteBlog}/>
+					<Blog blog={blog} setLike={setLike} currentUser={currentUser} deleteBlog={deleteBlog}/>
 				</div>)}
 			</>
 		</div>

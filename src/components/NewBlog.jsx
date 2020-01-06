@@ -87,7 +87,7 @@ const StyledForm = styled.form`
 `;
 
 const StyledButton = styled.input`
-	padding: 10px;
+	padding: 5px;
 	max-width: 100px;
 	background-color: #293990;
 	cursor: pointer;

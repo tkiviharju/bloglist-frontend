@@ -115,7 +115,6 @@ const App = () => {
 		BlogService.setToken(null);
 	};
 
-
 	return (
 		<StyledWrapper>
 			{notification && <Notification notification={notification} error={error}/>}
@@ -133,6 +132,7 @@ const App = () => {
 						NewBlogRef={NewBlogRef}
 						setLike={setLike}
 						deleteBlog={deleteBlog}
+						currentUser={user.user}
 					/>
 					:
 					<LoginForm handleLogin={handleLogin} />

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const Blog = ({ blog, setLike, deleteBlog }) => {
+const Blog = ({ blog, setLike, deleteBlog, currentUser }) => {
 	const { title, author, likes, url, user, id} = blog;
 	const [ showFull, setShowFull ] = useState(false);
 
@@ -15,18 +15,21 @@ const Blog = ({ blog, setLike, deleteBlog }) => {
 	};
 
 	const handleDelete = () => {
-		deleteBlog(id);
+		if (window.confirm(`Remove blog ${title} by ${author}`)){
+			deleteBlog(id);
+		}
 	};
+console.log(currentUser)
 
 	return (
 		<StyledContainer onClick={handleClick}>
 			{showFull ? (
 				<StyledColumn>
 					{title} by {author}
-					<a href={`//${url}`}>{url}</a>
-					<div>{likes} likes <button onClick={handleLike}>like</button></div>
+					<a target='_blank' rel='noopener noreferrer' href={`//${url}`}>{url}</a>
+					<div>{likes} likes <button onClick={handleLike}>Like</button></div>
 					<div>added by {user.name}</div>
-					<button onClick={handleDelete}>Remove</button>
+					{currentUser === user.username && <StyledDelete onClick={handleDelete}>Remove</StyledDelete>}
 				</StyledColumn>
 			) : (
 				<div>{title} by {author} </div>
@@ -54,9 +57,15 @@ const StyledColumn = styled.div`
 		margin: 2px;
 	}
 	button {
-		max-width: fit-content;
 		cursor: pointer;
+		padding: 5px;
 	}
+`;
+
+const StyledDelete = styled.button`
+	max-width: fit-content;
+	background-color: #9c3b3b !important;
+	border-color: #9c3b3b;
 `;
 
 export default Blog;
