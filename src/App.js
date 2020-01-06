@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createRef } from 'react';
 import styled from 'styled-components';
 
 import LoginService from './services/login.js';
@@ -15,6 +15,8 @@ const App = () => {
 	const [ blogs, setBlogs ] = useState([]);
 	const [ notification, setNotification ] = useState('');
 	const [ error, setError ] = useState(false);
+
+	const NewBlogRef = createRef();
 
 	useEffect(() => {
 		BlogService
@@ -59,6 +61,7 @@ const App = () => {
 		if (error)
 			return handleNotification(error, true);
 
+		NewBlogRef.current.toggleVisibility();
 		const noti = `New blog, ${savedBlog.title} saved!`;
 		handleNotification(noti, false);
 		setBlogs(blogs.concat(savedBlog));
@@ -99,6 +102,7 @@ const App = () => {
 						addBlog={addBlog}
 						handleNotification={handleNotification}
 						handleLogout={handleLogout}
+						NewBlogRef={NewBlogRef}
 					/>
 					:
 					<LoginForm handleLogin={handleLogin} />

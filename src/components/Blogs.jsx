@@ -3,9 +3,10 @@ import styled from 'styled-components';
 
 import NewBlog from './NewBlog.jsx';
 import Blog from './Blog.jsx';
+import Togglabble from './Togglabble.jsx';
 
 
-const Blogs = ({ user, blogs, handleLogout, addBlog, handleNotification}) => {
+const Blogs = ({ user, blogs, handleLogout, addBlog, NewBlogRef, handleNotification}) => {
 	if (!user) return;
 
 	const handleClick = () => (
@@ -18,7 +19,9 @@ const Blogs = ({ user, blogs, handleLogout, addBlog, handleNotification}) => {
 			<StyledName>
 				{name} logged in. <StyledButton onClick={handleClick}>logout</StyledButton>
 			</StyledName>
-			<NewBlog addBlog={addBlog} handleNotification={handleNotification}/>
+			<Togglabble buttonLabel='Add new' ref={NewBlogRef}>
+				<NewBlog addBlog={addBlog} handleNotification={handleNotification}/>
+			</Togglabble>
 			<>
 				{blogs.length > 0 && blogs.map(blog => <div key={blog.title}>
 					<Blog blog={blog} />
