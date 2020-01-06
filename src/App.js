@@ -98,6 +98,17 @@ const App = () => {
 	};
 
 
+	const deleteBlog = async (id) => {
+		const [ , error ] = await promiseHandler(BlogService.remove(id));
+		if (error)
+			return handleNotification(error, true);
+		const noti = 'Blog removed successfully!';
+		handleNotification(noti, false);
+
+		setBlogs(blogs.filter(blog => blog.id !== id));
+	};
+
+
 	const handleLogout = () => {
 		setUser(null);
 		window.localStorage.removeItem('user');
@@ -121,6 +132,7 @@ const App = () => {
 						handleLogout={handleLogout}
 						NewBlogRef={NewBlogRef}
 						setLike={setLike}
+						deleteBlog={deleteBlog}
 					/>
 					:
 					<LoginForm handleLogin={handleLogin} />

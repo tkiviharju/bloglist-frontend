@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const Blog = ({ blog, setLike }) => {
-	const { title, author, likes, url, user } = blog;
+const Blog = ({ blog, setLike, deleteBlog }) => {
+	const { title, author, likes, url, user, id} = blog;
 	const [ showFull, setShowFull ] = useState(false);
 
 	const handleClick = () => setShowFull(!showFull);
@@ -14,6 +14,10 @@ const Blog = ({ blog, setLike }) => {
 		setLike(deepCopy);
 	};
 
+	const handleDelete = () => {
+		deleteBlog(id);
+	};
+
 	return (
 		<StyledContainer onClick={handleClick}>
 			{showFull ? (
@@ -22,6 +26,7 @@ const Blog = ({ blog, setLike }) => {
 					<a href={`//${url}`}>{url}</a>
 					<div>{likes} likes <button onClick={handleLike}>like</button></div>
 					<div>added by {user.name}</div>
+					<button onClick={handleDelete}>Remove</button>
 				</StyledColumn>
 			) : (
 				<div>{title} by {author} </div>
@@ -47,6 +52,10 @@ const StyledColumn = styled.div`
 	}
 	div {
 		margin: 2px;
+	}
+	button {
+		max-width: fit-content;
+		cursor: pointer;
 	}
 `;
 
