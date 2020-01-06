@@ -5,7 +5,7 @@ import NewBlog from './NewBlog.jsx';
 import Blog from './Blog.jsx';
 
 
-const Blogs = ({ user, blogs, handleLogout, addBlog}) => {
+const Blogs = ({ user, blogs, handleLogout, addBlog, handleNotification}) => {
 	if (!user) return;
 
 	const handleClick = () => (
@@ -18,7 +18,7 @@ const Blogs = ({ user, blogs, handleLogout, addBlog}) => {
 			<StyledName>
 				{name} logged in. <StyledButton onClick={handleClick}>logout</StyledButton>
 			</StyledName>
-			<NewBlog addBlog={addBlog}/>
+			<NewBlog addBlog={addBlog} handleNotification={handleNotification}/>
 			<>
 				{blogs.length > 0 && blogs.map(blog => <div key={blog.title}>
 					<Blog blog={blog} />

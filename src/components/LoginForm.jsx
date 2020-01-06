@@ -4,11 +4,9 @@ import styled from 'styled-components';
 const LoginForm = ({ handleLogin }) => {
 	const [ username, setUsername ] = useState('');
 	const [ password, setPassword ] = useState('');
-	const [ error, setError ] = useState('');
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		console.log('TODO validate credentials', username, password);
 		const credentials = {
 			username,
 			password

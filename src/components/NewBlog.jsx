@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 
-const NewBlog = ({ addBlog }) => {
+const NewBlog = ({ addBlog, handleNotification }) => {
 	const [ title, setTitle ] = useState('');
 	const [ author, setAuthor ] = useState('');
 	const [ url, setUrl ] = useState('');
@@ -24,6 +24,15 @@ const NewBlog = ({ addBlog }) => {
 		setUrl('');
 	};
 
+	const validateInput = (newBlog) => {
+		const errors = Object.keys(newBlog).map(key => {
+			if (newBlog[key].length < 3)
+				return ` ${key}`;
+		}).filter(key => key);
+		return errors;
+
+	};
+
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		const newBlog = {
@@ -31,9 +40,13 @@ const NewBlog = ({ addBlog }) => {
 			author,
 			url
 		};
+		const errors = validateInput(newBlog);
+		if (errors.length){
+			const noti = `Following inputs must be over 3 characters: ${errors.toString()}`;
+			return handleNotification(noti, true);
+		}
 		addBlog(newBlog);
 		resetInputs();
-
 	};
 
 	return (
