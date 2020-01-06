@@ -21,7 +21,7 @@ const App = () => {
 	useEffect(() => {
 		BlogService
 			.getAll()
-			.then(blogs => setBlogs(blogs))
+			.then(blogs => setBlogs(blogs.sort((blog1, blog2) => blog1.id > blog2.id ? 1 : -1)))
 			.catch(error => setNotification(error.error, true));
 
 	}, []);
@@ -81,6 +81,23 @@ const App = () => {
 	};
 
 
+	const setLike = async (blog) => {
+		const { id } = blog;
+		const [ updatedBlog, error ] = await promiseHandler(BlogService.update(id, blog));
+		if (error)
+			return handleNotification(error, true);
+		const noti = `${updatedBlog.title} liked!`;
+		handleNotification(noti, false);
+
+		const newBlogs = blogs
+			.filter(blog => blog.id !== updatedBlog.id)
+			.concat(updatedBlog)
+			.sort((blog1, blog2) => blog1.id > blog2.id ? 1 : -1);
+
+		setBlogs(newBlogs);
+	};
+
+
 	const handleLogout = () => {
 		setUser(null);
 		window.localStorage.removeItem('user');
@@ -103,6 +120,7 @@ const App = () => {
 						handleNotification={handleNotification}
 						handleLogout={handleLogout}
 						NewBlogRef={NewBlogRef}
+						setLike={setLike}
 					/>
 					:
 					<LoginForm handleLogin={handleLogin} />
