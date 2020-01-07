@@ -22,7 +22,7 @@ const Blog = ({ blog, setLike, deleteBlog, currentUser }) => {
 	};
 
 	return (
-		<StyledContainer onClick={handleClick}>
+		<StyledContainer className='wrapper' onClick={handleClick}>
 			{showFull ? (
 				<StyledColumn>
 					{title} by {author}
