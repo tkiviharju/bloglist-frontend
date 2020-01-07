@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+import useField from '../hooks/index.js';
+
 const LoginForm = ({ handleLogin }) => {
-	const [ username, setUsername ] = useState('');
-	const [ password, setPassword ] = useState('');
+	const username = useField('text');
+	const password = useField('password');
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -15,36 +17,12 @@ const LoginForm = ({ handleLogin }) => {
 		handleLogin(credentials);
 	};
 
-
-	const handleChange = (event) => {
-		const { name, value } = event.target;
-
-		if (name === 'username'){
-			setUsername(value);
-
-		} else if (name === 'password'){
-			setPassword(value);
-		}
-	};
-
 	return (
 		<StyledWrapper>
 			<h2>Login to application</h2>
 			<StyledForm onSubmit={handleSubmit}>
-				<input
-					type='text'
-					onChange={handleChange}
-					name='username'
-					placeholder='username'
-					value={username}
-				/>
-				<input
-					type='password'
-					onChange={handleChange}
-					name='password'
-					placeholder='password'
-					value={password}
-				/>
+				<input {...username} />
+				<input {...password} />
 				<StyledButton type='submit' value='Login'/>
 			</StyledForm>
 		</StyledWrapper>

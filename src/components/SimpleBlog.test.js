@@ -36,7 +36,7 @@ test('clicking the button twice calls the event handler twice', async () => {
 
 	const { getByText } = render(
 		<SimpleBlog blog={blog} onClick={mockHandler} />
-	  )
+	);
 
 	const button = getByText('like');
 	fireEvent.click(button);
