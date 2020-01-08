@@ -2,19 +2,21 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import useField from '../hooks/index.js';
+import { useField } from '../hooks';
 
 const LoginForm = ({ handleLogin }) => {
-	const username = useField('text');
-	const password = useField('password');
+	const username = useField('text', 'username');
+	const password = useField('password', 'password');
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		const credentials = {
-			username,
-			password
+			username: username.value,
+			password: password.value
 		};
 		handleLogin(credentials);
+		username.reset();
+		password.reset();
 	};
 
 	return (

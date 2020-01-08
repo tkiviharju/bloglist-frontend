@@ -57,7 +57,6 @@ const App = () => {
 
 	const addBlog = async (newBlog) => {
 		const [ savedBlog, error ] = await promiseHandler(BlogService.create(newBlog));
-		console.log(error);
 		if (error)
 			return handleNotification(error, true);
 

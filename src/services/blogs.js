@@ -31,6 +31,7 @@ const remove = async (id) => {
 };
 
 const create = async (blog) => {
+	console.log(token);
 	const config = {
 		headers: { Authorization: token },
 	};

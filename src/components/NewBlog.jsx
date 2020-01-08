@@ -1,29 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { useField } from '../hooks';
 
 
 const NewBlog = ({ addBlog, handleNotification }) => {
-	const [ title, setTitle ] = useState('');
-	const [ author, setAuthor ] = useState('');
-	const [ url, setUrl ] = useState('');
+	const title = useField('text', 'title');
+	const author = useField('text', 'author');
+	const url = useField('text', 'url');
 
-	const handleChange = (event) => {
-		const { name, value } = event.target;
-		if (name === 'url'){
-			setUrl(value);
-		} else if (name === 'author'){
-			setAuthor(value);
-		} else if (name === 'title'){
-			setTitle(value);
-		}
-	};
-
-	const resetInputs = () => {
-		setTitle('');
-		setAuthor('');
-		setUrl('');
-	};
 
 	const validateInput = (newBlog) => {
 		const errors = Object.keys(newBlog).map(key => {
@@ -37,9 +22,9 @@ const NewBlog = ({ addBlog, handleNotification }) => {
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		const newBlog = {
-			title,
-			author,
-			url
+			title: title.value,
+			author: author.value,
+			url: url.value
 		};
 		const errors = validateInput(newBlog);
 		if (errors.length){
@@ -47,34 +32,17 @@ const NewBlog = ({ addBlog, handleNotification }) => {
 			return handleNotification(noti, true);
 		}
 		addBlog(newBlog);
-		resetInputs();
+		[title, author, url].forEach(value => value.reset());
+
 	};
 
 	return (
 		<div>
 			<h3>Add new</h3>
 			<StyledForm onSubmit={handleSubmit}>
-				<input
-					placeholder={'Title'}
-					value={title}
-					type='text'
-					onChange={handleChange}
-					name='title'
-				/>
-				<input
-					placeholder={'Author'}
-					value={author}
-					type='text'
-					onChange={handleChange}
-					name='author'
-				/>
-				<input
-					placeholder={'Url'}
-					value={url}
-					type='text'
-					onChange={handleChange}
-					name='url'
-				/>
+				<input {...title} />
+				<input {...author} />
+				<input {...url} />
 				<StyledButton type='submit' value='Add' />
 			</StyledForm>
 		</div>
