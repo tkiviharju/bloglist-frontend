@@ -40,9 +40,10 @@ const NewBlog = ({ addBlog, handleNotification }) => {
 		<div>
 			<h3>Add new</h3>
 			<StyledForm onSubmit={handleSubmit}>
-				<input {...title} />
-				<input {...author} />
-				<input {...url} />
+				{[title, author, url].map(field => {
+					const { reset, ...rest } = field;
+					return <input key={field.placeholder} { ...rest } />;
+				})}
 				<StyledButton type='submit' value='Add' />
 			</StyledForm>
 		</div>

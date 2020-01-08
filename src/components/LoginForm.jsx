@@ -23,8 +23,10 @@ const LoginForm = ({ handleLogin }) => {
 		<StyledWrapper>
 			<h2>Login to application</h2>
 			<StyledForm onSubmit={handleSubmit}>
-				<input {...username} />
-				<input {...password} />
+				{[username, password].map(field => {
+					const { reset, ...rest } = field;
+					return <input key={field.placeholder} { ...rest } />;
+				})}
 				<StyledButton type='submit' value='Login'/>
 			</StyledForm>
 		</StyledWrapper>

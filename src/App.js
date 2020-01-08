@@ -73,6 +73,7 @@ const App = () => {
 			return handleNotification(error, true);
 
 		setUser(loggedUser);
+		BlogService.setToken(loggedUser.token);
 		const noti = 'Login successful!';
 		handleNotification(noti, false);
 		window.localStorage.setItem('user', JSON.stringify(loggedUser));
